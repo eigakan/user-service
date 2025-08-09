@@ -21,6 +21,7 @@ type NatsConfig struct {
 }
 
 type Config struct {
+	Env  string
 	Db   DbConfig
 	Nats NatsConfig
 }
@@ -31,6 +32,7 @@ func Load() *Config {
 	}
 
 	return &Config{
+		Env: getEnv("ENV", "dev"),
 		Db: DbConfig{
 			Host:     getEnv("DB_HOST", "localhost"),
 			Port:     getEnv("DB_PORT", "5432"),

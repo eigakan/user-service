@@ -22,9 +22,11 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error connecting to NATS: %v\n", err)
 	}
-	defer nc.Close()
+	defer nc.Drain()
 
-	db.AutoMigrate(&model.User{})
+	if config.Env == "dev" {
+		db.AutoMigrate(&model.User{})
+	}
 
 	select {}
 }

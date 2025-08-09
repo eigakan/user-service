@@ -8,8 +8,6 @@ services:
       - .:/app
     depends_on:
       - db
-    ports:
-      - "8081:8081"
   db:
     image: postgres:17
     restart: always
@@ -25,3 +23,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 volumes:
   pgdata:
+
+networks: 
+  app-network:
+    driver: bridge
