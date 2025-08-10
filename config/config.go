@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/joho/godotenv"
 )
@@ -17,18 +18,34 @@ type DbConfig struct {
 
 type NatsConfig struct {
 	Host string
-	Port string
+	Port int
+}
+
+type JwtConfig struct {
+	Secret   string
+	ExpHours int16
 }
 
 type Config struct {
 	Env  string
 	Db   DbConfig
 	Nats NatsConfig
+	Jwt  JwtConfig
 }
 
 func Load() *Config {
 	if err := godotenv.Load(); err != nil {
 		fmt.Println("Error loading .env file. Loading default values")
+	}
+
+	tokenExpHours, err := strconv.Atoi(getEnv("JWT_EXP_HOURS", "24"))
+	if err != nil {
+		panic("Cannot parse JWT_EXP_HOURS from env. Please set it to a valid integer value")
+	}
+
+	natsPort, err := strconv.Atoi(getEnv("NATS_PORT", "4222"))
+	if err != nil {
+		panic("Cannot parse JWT_EXP_HOURS from env. Please set it to a valid integer value")
 	}
 
 	return &Config{
@@ -42,7 +59,12 @@ func Load() *Config {
 		},
 		Nats: NatsConfig{
 			Host: getEnv("NATS_HOST", "localhost"),
-			Port: getEnv("NATS_PORT", "4222"),
+			Port: natsPort,
+		},
+
+		Jwt: JwtConfig{
+			Secret:   getEnv("JWT_SECRET", "my-super-secret"),
+			ExpHours: int16(tokenExpHours),
 		},
 	}
 }

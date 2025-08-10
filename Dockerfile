@@ -3,7 +3,7 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY .. .
-RUN go build -o /bin/app ./cmd/api
+RUN go build -o /bin/app ./cmd/user-service
 
 FROM golang:1.24-alpine as runner
 WORKDIR /root/
