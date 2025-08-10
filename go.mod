@@ -2,9 +2,10 @@ module github.com/eigakan/user-service
 
 go 1.24.6
 
+// replace github.com/eigakan/nats-shared => ../nats-shared
+
 require (
-	github.com/eigakan/nats-shared v0.0.0-20250809235751-b18570f43302
-	github.com/golang-jwt/jwt/v5 v5.3.0
+	github.com/eigakan/nats-shared v0.0.0-20250810153617-f3f5680a61e4
 	github.com/joho/godotenv v1.5.1
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gorm v1.30.1

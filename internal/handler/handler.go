@@ -18,6 +18,7 @@ func NewUserHandlers(nc *nats_client.Client, r *repository.UserRepository, jwtCo
 }
 
 func (h *UserHandlers) RegisterHandlers() {
-	h.nc.Subscribe(topics.UserRegisterTopic, h.Register)
-	h.nc.Subscribe(topics.UserLoginTopic, h.Login)
+	h.nc.Subscribe(topics.UserGet, h.GetUser)
+	h.nc.Subscribe(topics.UserCreate, h.CreateUser)
+	h.nc.Subscribe(topics.UserCheckPassword, h.CheckPassword)
 }

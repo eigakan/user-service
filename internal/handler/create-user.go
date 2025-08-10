@@ -9,8 +9,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (h *UserHandlers) Register(msg *nats.Msg) {
-	var reqDto dto.RegisterRequestDTO
+func (h *UserHandlers) CreateUser(msg *nats.Msg) {
+	var reqDto dto.CreateUserRequestDTO
 
 	if err := json.Unmarshal(msg.Data, &reqDto); err != nil {
 		h.nc.RespondErr(msg, "Invalid payload")
@@ -35,8 +35,5 @@ func (h *UserHandlers) Register(msg *nats.Msg) {
 		return
 	}
 
-	if data, err := json.Marshal(&dto.RegisterResponseDTO{Ok: true}); err == nil {
-		h.nc.Respond(msg, data)
-		return
-	}
+	h.nc.Respond(msg, dto.CreateUserResponseDTO{Ok: true})
 }
