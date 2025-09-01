@@ -2,14 +2,14 @@ module github.com/eigakan/user-service
 
 go 1.24.6
 
-// replace github.com/eigakan/nats-shared => ../nats-shared
-
 require (
-	github.com/eigakan/nats-shared v0.0.0-20250810153617-f3f5680a61e4
+	github.com/eigakan/nats-shared v0.0.0-20250831232047-75c712b11892
 	github.com/joho/godotenv v1.5.1
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gorm v1.30.1
 )
+
+replace github.com/eigakan/nats-shared => ../nats-shared
 
 require (
 	github.com/klauspost/compress v1.18.0 // indirect

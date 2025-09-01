@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 services:
   app:
     build:
@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile.local
     volumes:
       - .:/app
+      - ../nats-shared:/nats-shared
     depends_on:
       - db
     networks:
@@ -32,6 +33,6 @@ volumes:
 
 networks:
   eigakan-external:
-    external: true 
+    external: true
   app-network:
     driver: bridge
